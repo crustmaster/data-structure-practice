@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 
 public class BST {
 
@@ -8,7 +10,7 @@ public class BST {
         int val;
         TreeNode left;
         TreeNode right;
-        public TreeNode(val) { this.val = val; }
+        public TreeNode(int val) { this.val = val; }
     }
 
     /* testify the root is a valid BST or not. (eg: in case the left_value may bigger than root_value.)*/
@@ -23,6 +25,26 @@ public class BST {
         return true;
     }
 
+    /* BSTIterator*/
+    static class BSTIterator {
+        private List<Integer> arr;
+        private int index;
+        public BSTIterator(TreeNode root) {
+            index = 0;
+            arr = new ArrayList<Integer>();
+            inorderTraversal(root, arr); }
+        public int next() {
+            int abc = arr.get(index);
+            index +=1;
+            return abc; }
+        public boolean hasNext() { return index < arr.size(); }
+        public void inorderTraversal(TreeNode root, List<Integer> arr) {
+            if (root == null) { return; }
+            inorderTraversal(root.left, arr);
+            arr.add(root.val);
+            inorderTraversal(root.right, arr); }
+    }
+
     /* search in a BST, and return a bst with the expected value as the root. */
     public TreeNode searchBST(TreeNode root, int val) {
         if (root == null) { return null; }
@@ -34,11 +56,11 @@ public class BST {
     /* insert an item in a BST, and return the new BST. (recursion) */
     public TreeNode insertIntoBST_method1(TreeNode root, int val) {
         if (root == null) { return new TreeNode(val); }
-        if (root.val < val) { root.right = insertIntoBST(root.right, val); }
-        if (root.val > val) { root.left = insertIntoBST(root.left, val); }
+        if (root.val < val) { root.right = insertIntoBST_method1(root.right, val); }
+        if (root.val > val) { root.left = insertIntoBST_method1(root.left, val); }
         return root;
     }
-    
+
     /* insert an item in a BST, and return the new BST. (Iteration) */
     public TreeNode insertIntoBST_method2(TreeNode root, int val) {
         if (root == null) { return new TreeNode(val); }
@@ -79,20 +101,27 @@ public class BST {
             successor.right = root.right;
             return successor;
         }
-        return root;    
+        return root;
     }
-    
 
 
 
+    public static void main(String[] args) {
+        BST bst = new BST();
+        bst.root = bst.insertIntoBST_method1(bst.root, 50);
+        bst.root = bst.insertIntoBST_method1(bst.root, 30);
+        bst.root = bst.insertIntoBST_method1(bst.root, 20);
+        bst.root = bst.insertIntoBST_method1(bst.root, 40);
+        bst.root = bst.insertIntoBST_method1(bst.root, 70);
+        bst.root = bst.insertIntoBST_method1(bst.root, 60);
+        bst.root = bst.insertIntoBST_method1(bst.root, 80);
 
-
-
-
-
-    
+        BSTIterator iterator = new BSTIterator(bst.root);
+        while (iterator.hasNext()) { System.out.println( iterator.next() ); }
+    }
 
 }
+
 
 /*
 leetcode
