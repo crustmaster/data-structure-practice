@@ -16,6 +16,11 @@ public class LinkedList {
         sentinel = new Node(2024);
     }
 
+    /*get the size of the list*/
+    public int size() {
+        return size;
+    }
+    
     /* get the value of certain index */
     public int get(int index) {
         if (index<0 || index>size-1 ) {
