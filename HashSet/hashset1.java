@@ -1,4 +1,4 @@
-class MyHashSet {
+class hashset1 {
 
     private static final int base =769;
     private LinkedList[] data;
