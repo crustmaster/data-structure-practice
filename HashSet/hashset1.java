@@ -42,3 +42,5 @@ class MyHashSet {
 
     private static int hash(int key) { return key % base; }
 }
+
+#705: https://leetcode.cn/problems/design-hashset/
